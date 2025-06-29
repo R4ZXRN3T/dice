@@ -1,0 +1,8 @@
+[package]
+name = "dice"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+rand = "0.9.1"
+clap = { version = "4.5.40", features = ["derive"] }
