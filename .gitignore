@@ -2,3 +2,5 @@
 /.idea
 /final
 Cargo.lock
+build.ps1
+buildone.ps1

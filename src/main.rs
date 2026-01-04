@@ -1,4 +1,4 @@
-use clap::{arg, Parser};
+use clap::{Parser};
 use rand::Rng;
 
 #[derive(Parser, Debug)]
@@ -24,6 +24,7 @@ fn main() {
 	let args = Args::parse();
 	let mut rng = rand::rng();
 	let mut values: Vec<usize> = vec![0; args.maximum];
+	let start_time = std::time::Instant::now();
 	for _i in 0..args.rolls {
 		let rnd = rng.random_range(args.minimum..args.maximum + 1);
 		values[rnd - 1] += 1;
@@ -31,15 +32,17 @@ fn main() {
 			println!("{}", rnd);
 		}
 	}
+	let duration = start_time.elapsed();
 
 	if args.show_conclusion {
 		println!("\nSummary:\n");
+		println!("Total time: {}s\n", duration.as_secs_f64());
 		for i in args.minimum - 1..args.maximum {
 			println!(
-				"{}:\t{}\t{:.2}%",
+				"{}:\t{}\t{:.4}%",
 				i + 1,
 				values[i],
-				(values[i] as f64 / args.rolls as f64) * 100.0
+				(values[i] as f64 / args.rolls as f64) * 100f64
 			);
 		}
 	}
